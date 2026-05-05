@@ -1,0 +1,310 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=DM+Sans:wght@400;500;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a1010;--paper:#faf8f4;--red:#c8302e;--red-light:#f5e8e8;--muted:#7a6e68;--border:#e0d8ce}
+body,#app{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink)}
+.topbar{background:var(--ink);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:56px;border-bottom:3px solid var(--red)}
+.logo{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:700;color:white;display:flex;align-items:center;gap:8px}
+.logo span{color:var(--red)}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-link{color:rgba(255,255,255,0.75);font-size:13px;font-weight:500;cursor:pointer;border:none;background:none;padding:0}
+.nav-link:hover{color:white}
+.cart-btn{background:var(--red);color:white;border:none;border-radius:6px;padding:7px 16px;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px}
+.cart-badge{background:white;color:var(--red);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
+.hero{background:var(--ink);padding:2.5rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+.hero-tag{display:inline-block;background:var(--red);color:white;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:3px;margin-bottom:1rem}
+.hero-title{font-family:'Noto Serif JP',serif;font-size:32px;font-weight:700;color:white;line-height:1.2;margin-bottom:.75rem}
+.hero-title em{color:var(--red);font-style:normal}
+.hero-sub{color:rgba(255,255,255,0.55);font-size:14px;margin-bottom:1.5rem;max-width:360px}
+.hero-btn{background:var(--red);color:white;border:none;border-radius:6px;padding:12px 28px;font-size:14px;font-weight:600;cursor:pointer}
+.hero-covers{display:flex;gap:10px;align-items:flex-end}
+.hero-cover{border-radius:4px;overflow:hidden;border:2px solid rgba(255,255,255,0.1)}
+.hero-cover img{display:block;object-fit:cover}
+.main{padding:2rem}
+.section-title{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700;margin-bottom:1.25rem}
+.tabs{display:flex;gap:4px;margin-bottom:1.5rem;border-bottom:1.5px solid var(--border)}
+.tab{font-size:13px;font-weight:500;padding:8px 16px;cursor:pointer;border:none;background:none;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1.5px}
+.tab.active{color:var(--ink);border-bottom-color:var(--red)}
+.tab:hover{color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;margin-bottom:2.5rem}
+.card{background:white;border:0.5px solid var(--border);border-radius:8px;overflow:hidden;cursor:pointer;transition:transform 0.15s}
+.card:hover{transform:translateY(-3px)}
+.cover{width:100%;height:200px;position:relative;overflow:hidden;background:#e8e0d4}
+.cover img{width:100%;height:100%;object-fit:cover;display:block}
+.cover-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px}
+.badge{position:absolute;top:8px;left:8px;font-size:9px;font-weight:600;letter-spacing:.5px;padding:3px 7px;border-radius:3px;text-transform:uppercase}
+.badge-new{background:var(--red);color:white}
+.badge-hot{background:#e8821a;color:white}
+.badge-sale{background:#1a7a3f;color:white}
+.card-info{padding:10px 12px 12px}
+.card-title{font-size:13px;font-weight:600;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card-author{font-size:11px;color:var(--muted);margin-bottom:6px}
+.card-genre{display:inline-block;font-size:10px;background:var(--red-light);color:var(--red);padding:2px 7px;border-radius:20px;font-weight:500;margin-bottom:8px}
+.card-footer{display:flex;align-items:center;justify-content:space-between}
+.price{font-size:15px;font-weight:600;color:var(--ink)}
+.price-old{font-size:11px;color:var(--muted);text-decoration:line-through;margin-left:4px}
+.add-btn{background:var(--red);color:white;border:none;border-radius:5px;width:28px;height:28px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.stars{font-size:10px;color:#e8821a;margin-bottom:2px}
+.promo-strip{background:var(--ink);color:white;border-radius:10px;padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem}
+.promo-text{font-size:13px;color:rgba(255,255,255,0.65);margin-top:4px}
+.promo-title{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700}
+.promo-title span{color:var(--red)}
+.promo-btn{background:white;color:var(--ink);border:none;border-radius:6px;padding:10px 22px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.35);z-index:998}
+.cart-overlay.open{display:block}
+.cart-modal{display:none;position:fixed;top:0;right:0;bottom:0;width:340px;background:white;border-left:0.5px solid var(--border);z-index:999;flex-direction:column}
+.cart-modal.open{display:flex}
+.cart-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:0.5px solid var(--border)}
+.cart-header h3{font-family:'Noto Serif JP',serif;font-size:18px}
+.close-btn{background:none;border:0.5px solid var(--border);border-radius:5px;width:32px;height:32px;cursor:pointer;font-size:16px;color:var(--muted)}
+.cart-items{flex:1;overflow-y:auto;padding:1rem 1.5rem}
+.cart-item{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:0.5px solid var(--border)}
+.cart-thumb{width:44px;height:56px;border-radius:4px;overflow:hidden;flex-shrink:0;background:#e8e0d4}
+.cart-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.cart-item-title{font-size:13px;font-weight:500}
+.cart-item-price{font-size:12px;color:var(--red);font-weight:600}
+.qty-ctrl{display:flex;align-items:center;gap:6px;margin-top:4px}
+.qty-btn{width:22px;height:22px;background:var(--paper);border:0.5px solid var(--border);border-radius:4px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);line-height:1}
+.qty-num{font-size:13px;font-weight:500;min-width:18px;text-align:center}
+.remove-btn{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:0}
+.cart-footer{padding:1.25rem 1.5rem;border-top:0.5px solid var(--border)}
+.cart-total{display:flex;justify-content:space-between;font-size:15px;font-weight:600;margin-bottom:1rem}
+.checkout-btn{width:100%;background:var(--red);color:white;border:none;border-radius:7px;padding:13px;font-size:14px;font-weight:600;cursor:pointer}
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:white;padding:10px 20px;border-radius:7px;font-size:13px;font-weight:500;z-index:9999;transition:transform 0.3s;white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+
+<div id="app">
+  <div class="topbar">
+    <div class="logo">漫画<span>HAUS</span></div>
+    <div class="nav-links">
+      <button class="nav-link">Shonen</button>
+      <button class="nav-link">Shojo</button>
+      <button class="nav-link">Seinen</button>
+      <button class="nav-link">Josei</button>
+      <button class="nav-link">Novas Edições</button>
+    </div>
+    <button class="cart-btn" onclick="openCart()">
+      🛒 Carrinho
+      <span class="cart-badge" id="cart-count">0</span>
+    </button>
+  </div>
+
+  <div class="hero">
+    <div>
+      <div class="hero-tag">Lançamento da semana</div>
+      <div class="hero-title">Os melhores mangás,<br>entregues na sua<br><em>porta.</em></div>
+      <div class="hero-sub">Coleção completa de séries clássicas e novidades direto do Japão. Frete grátis acima de R$150.</div>
+      <button class="hero-btn" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">Ver catálogo</button>
+    </div>
+    <div class="hero-covers" id="hero-covers"></div>
+  </div>
+
+  <div class="main" id="catalog">
+    <div class="section-title">Catálogo</div>
+    <div class="tabs">
+      <button class="tab active" onclick="filterTab(this,'todos')">Todos</button>
+      <button class="tab" onclick="filterTab(this,'shonen')">Shonen</button>
+      <button class="tab" onclick="filterTab(this,'shojo')">Shojo</button>
+      <button class="tab" onclick="filterTab(this,'seinen')">Seinen</button>
+      <button class="tab" onclick="filterTab(this,'josei')">Josei</button>
+    </div>
+    <div class="grid" id="manga-grid"></div>
+  </div>
+</div>
+
+<div class="cart-overlay" id="overlay" onclick="closeCart()"></div>
+<div class="cart-modal" id="cart-modal">
+  <div class="cart-header">
+    <h3>Carrinho</h3>
+    <button class="close-btn" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items-container">
+    <div style="text-align:center;padding:3rem 1rem;color:var(--muted);font-size:13px;">Seu carrinho está vazio</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Total</span><span id="cart-total">R$ 0,00</span></div>
+    <button class="checkout-btn" onclick="checkout()">Finalizar pedido</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const mangas = [
+  {id:1,title:'Demon Slayer V1',author:'Koyoharu Gotouge',genre:'shonen',price:34.90,badge:'novo',rating:5,vol:'Vol. 23',
+   cover:'imagens/demon slayer.jpg'},
+  {id:2,title:'One Piece V1',author:'Eiichiro Oda',genre:'shonen',price:29.90,badge:'hot',rating:5,vol:'Vol. 107',
+   cover:'imagens/one piece.jpg'},
+  {id:3,title:'Attack on Titan V1',author:'Hajime Isayama',genre:'seinen',price:39.90,oldPrice:54.90,badge:'sale',rating:5,vol:'Vol. 34',
+   cover:'imagens/aot.jpg'},
+  {id:4,title:'Sailor Moon V1',author:'Naoko Takeuchi',genre:'shojo',price:32.90,badge:'',rating:4,vol:'Vol. 12',
+   cover:'imagens/sailor moon.jpg'},
+  {id:5,title:'Jujutsu Kaisen V1',author:'Gege Akutami',genre:'shonen',price:34.90,badge:'novo',rating:5,vol:'Vol. 26',
+   cover:'imagens/jjk.jpg'},
+  {id:6,title:'Fruits Basket V1',author:'Natsuki Takaya',genre:'shojo',price:28.90,badge:'',rating:4,vol:'Vol. 23',
+   cover:'imagens/fruit basket.jpg'},
+  {id:7,title:'Vagabond V1',author:'Takehiko Inoue',genre:'seinen',price:49.90,badge:'',rating:5,vol:'Vol. 37',
+   cover:'imagens/vagabond.jpg'},
+  {id:8,title:'Nana V1',author:'Ai Yazawa',genre:'josei',price:31.90,oldPrice:39.90,badge:'sale',rating:4,vol:'Vol. 21',
+   cover:'imagens/nana.jpg'},
+  {id:9,title:'Naruto V1',author:'Masashi Kishimoto',genre:'shonen',price:27.90,badge:'',rating:5,vol:'Vol. 72',
+   cover:'imagens/naruto.jpg'},
+  {id:10,title:'Berserk V1',author:'Kentaro Miura',genre:'seinen',price:54.90,badge:'hot',rating:5,vol:'Vol. 41',
+   cover:'imagens/berserk.jpg'},
+  {id:11,title:'Cardcaptor Sakura V1',author:'CLAMP',genre:'shojo',price:29.90,badge:'novo',rating:4,vol:'Vol. 12',
+   cover:'imagens/sck.jpg'},
+  {id:12,title:'My Hero Academia V1',author:'Kohei Horikoshi',genre:'shonen',price:33.90,badge:'',rating:4,vol:'Vol. 38',
+   cover:'imagens/bnk.jpg'},
+];
+
+const fallbackEmojis={shonen:'⚡',shojo:'🌸',seinen:'⚫',josei:'🎸'};
+let cart={};
+let currentFilter='todos';
+
+function imgEl(src,fallbackGenre,cls,style){
+  const img=document.createElement('img');
+  img.src=src;
+  img.style.cssText=style||'';
+  img.className=cls||'';
+  img.onerror=function(){
+    const p=this.parentElement;
+    p.innerHTML='<div class="cover-placeholder">'+fallbackEmojis[fallbackGenre]+'</div>';
+  };
+  return img;
+}
+
+function buildHeroCovers(){
+  const hc=document.getElementById('hero-covers');
+  const picks=[mangas[1],mangas[4],mangas[2]];
+  const heights=['105px','130px','105px'];
+  picks.forEach((m,i)=>{
+    const wrap=document.createElement('div');
+    wrap.className='hero-cover';
+    wrap.style.cssText='width:72px;height:'+heights[i];
+    const img=document.createElement('img');
+    img.src=m.cover;
+    img.style.cssText='width:100%;height:100%;object-fit:cover;display:block';
+    img.onerror=function(){this.parentElement.innerHTML='<div style="width:72px;height:'+heights[i]+';background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:28px">'+fallbackEmojis[m.genre]+'</div>'};
+    wrap.appendChild(img);
+    hc.appendChild(wrap);
+  });
+}
+
+function renderGrid(filter){
+  const grid=document.getElementById('manga-grid');
+  const items=filter==='todos'?mangas:mangas.filter(m=>m.genre===filter);
+  grid.innerHTML='';
+  items.forEach(m=>{
+    const card=document.createElement('div');
+    card.className='card';
+
+    const coverDiv=document.createElement('div');
+    coverDiv.className='cover';
+
+    const img=document.createElement('img');
+    img.src=m.cover;
+    img.alt=m.title;
+    img.onerror=function(){
+      coverDiv.innerHTML='<div class="cover-placeholder">'+fallbackEmojis[m.genre]+'</div>';
+      if(m.badge) coverDiv.insertAdjacentHTML('beforeend',badgeHTML(m.badge));
+    };
+    coverDiv.appendChild(img);
+
+    if(m.badge){
+      const b=document.createElement('div');
+      const map={novo:'badge-new new',hot:'badge-hot hot',sale:'badge-sale sale'};
+      const labels={novo:'Novo',hot:'Mais vendido',sale:'Oferta'};
+      b.className='badge '+map[m.badge].split(' ')[0];
+      b.textContent=labels[m.badge];
+      coverDiv.appendChild(b);
+    }
+
+    card.appendChild(coverDiv);
+    card.insertAdjacentHTML('beforeend',`
+      <div class="card-info">
+        <div class="stars">${'★'.repeat(m.rating)}${'☆'.repeat(5-m.rating)}</div>
+        <div class="card-title">${m.title}</div>
+        <div class="card-author">${m.author} · ${m.vol}</div>
+        <div class="card-genre">${m.genre.charAt(0).toUpperCase()+m.genre.slice(1)}</div>
+        <div class="card-footer">
+          <div>
+            <span class="price">R$ ${m.price.toFixed(2).replace('.',',')}</span>
+            ${m.oldPrice?`<span class="price-old">R$ ${m.oldPrice.toFixed(2).replace('.',',')}</span>`:''}
+          </div>
+          <button class="add-btn" onclick="addToCart(${m.id})">+</button>
+        </div>
+      </div>
+    `);
+    grid.appendChild(card);
+  });
+}
+
+function badgeHTML(badge){
+  const map={novo:'badge-new',hot:'badge-hot',sale:'badge-sale'};
+  const labels={novo:'Novo',hot:'Mais vendido',sale:'Oferta'};
+  return `<div class="badge ${map[badge]}">${labels[badge]}</div>`;
+}
+
+function filterTab(el,filter){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  renderGrid(filter);
+}
+
+function addToCart(id){
+  const m=mangas.find(x=>x.id===id);
+  if(!cart[id]) cart[id]={...m,qty:0};
+  cart[id].qty++;
+  updateCartUI();
+  showToast(m.title+' adicionado ao carrinho!');
+}
+
+function removeFromCart(id){delete cart[id];updateCartUI()}
+
+function changeQty(id,d){
+  if(!cart[id])return;
+  cart[id].qty+=d;
+  if(cart[id].qty<=0)delete cart[id];
+  updateCartUI();
+}
+
+function updateCartUI(){
+  const items=Object.values(cart);
+  const count=items.reduce((s,i)=>s+i.qty,0);
+  const total=items.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById('cart-count').textContent=count;
+  document.getElementById('cart-total').textContent='R$ '+total.toFixed(2).replace('.',',');
+  const c=document.getElementById('cart-items-container');
+  if(!items.length){c.innerHTML='<div style="text-align:center;padding:3rem 1rem;color:var(--muted);font-size:13px;">Seu carrinho está vazio</div>';return}
+  c.innerHTML='';
+  items.forEach(i=>{
+    const div=document.createElement('div');
+    div.className='cart-item';
+    div.innerHTML=`
+      <div class="cart-thumb"><img src="${i.cover}" alt="${i.title}" onerror="this.parentElement.textContent='📚'"></div>
+      <div style="flex:1">
+        <div class="cart-item-title">${i.title}</div>
+        <div class="cart-item-price">R$ ${i.price.toFixed(2).replace('.',',')}</div>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty(${i.id},-1)">−</button>
+          <span class="qty-num">${i.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${i.id},1)">+</button>
+        </div>
+      </div>
+      <button class="remove-btn" onclick="removeFromCart(${i.id})">🗑</button>
+    `;
+    c.appendChild(div);
+  });
+}
+
+function openCart(){document.getElementById('cart-modal').classList.add('open');document.getElementById('overlay').classList.add('open')}
+function closeCart(){document.getElementById('cart-modal').classList.remove('open');document.getElementById('overlay').classList.remove('open')}
+function checkout(){if(!Object.keys(cart).length)return;cart={};updateCartUI();closeCart();showToast('Pedido realizado com sucesso! 🎉')}
+
+let toastT;
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2500)}
+
+buildHeroCovers();
+renderGrid('todos');
+</script>
